@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@master
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -37,7 +37,7 @@ jobs:
       - name: Install dependencies from requirements.txt
         run: pip install -r requirements.txt
       - name: Deploy dev CDK environment
-        run: cdk deploy --context env=dev
+        run: cdk deploy --require-approval never
       - name: Sync local files to S3
         run: |
           aws s3 sync s3://scheme-dev-ref-data s3://scheme-ref-dev-data-copy
