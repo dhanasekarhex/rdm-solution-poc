@@ -40,7 +40,7 @@ jobs:
         run: cdk deploy --require-approval never
       - name: Sync local files to S3
         run: |
-          aws s3 sync s3://scheme-dev-ref-data s3://scheme-ref-dev-data-copy
+          aws s3 sync ./data s3://scheme-ref-dev-data-copy
         
   deploy-stage:
     runs-on: ubuntu-latest
