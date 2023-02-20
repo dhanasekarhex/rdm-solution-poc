@@ -19,7 +19,6 @@ jobs:
           sudo apt-get install -y awscli
       - name: Deploy dev environment
         run: |
-          cd cdk && \
           cdk deploy --context env=dev
       - name: Sync local files to S3
         run: |
