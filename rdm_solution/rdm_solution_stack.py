@@ -8,6 +8,9 @@ from aws_cdk import aws_lambda as _lambda
 from aws_cdk import aws_iam as _iam
 
 from constructs import Construct
+import os
+
+DIRNAME = os.path.dirname(__file__)
 
 class RdmSolutionStack(Stack):
 
@@ -20,7 +23,7 @@ class RdmSolutionStack(Stack):
             "s3_data_sync",
             runtime=_lambda.Runtime.PYTHON_3_9,
             handler='lambda_function.handler',
-            code=_lambda.Code.from_asset('lambda'),
+            code=_lambda.Code.from_asset(os.path.join(DIRNAME, "lambda")),
         )
 
         # Add policy to allow the lambda function to access s3
