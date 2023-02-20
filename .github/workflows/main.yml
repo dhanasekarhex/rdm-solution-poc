@@ -17,11 +17,19 @@ jobs:
         run: |
           sudo apt-get update && \
           sudo apt-get install -y awscli
-      - name: Deploy dev environment
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+          architecture: 'x64'
+      - name: Install CDK and Dependencies
         run: |
           python -m pip install --upgrade pip && \
-          pip install -r requirements.txt && \
-          cdk deploy --context env=dev
+          pip install aws-cdk.aws-s3 aws-cdk.aws-lambda aws-cdk.aws-iam
+      - name: Install dependencies from requirements.txt
+        run: pip install -r requirements.txt
+      - name: Deploy dev CDK environment
+        run: cdk deploy --context env=dev
       - name: Sync local files to S3
         run: |
           aws s3 sync s3://scheme-dev-ref-data s3://scheme-ref-dev-data-copy

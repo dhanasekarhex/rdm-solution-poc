@@ -6,7 +6,6 @@ from aws_cdk import (
 from aws_cdk import aws_s3 as s3
 from aws_cdk import aws_lambda as _lambda
 from aws_cdk import aws_iam as _iam
-from aws_cdk.aws_iam import Effect
 
 from constructs import Construct
 
