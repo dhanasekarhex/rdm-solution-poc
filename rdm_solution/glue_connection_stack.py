@@ -111,7 +111,6 @@ class GlueConnectionStack(Stack):
                 },
             },
         )
-        glue_connection.se
 
         # Create the Glue Database
         glue_database = glue.CfnDatabase(
