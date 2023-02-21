@@ -43,5 +43,6 @@ class ConnectionStack(Stack):
             database_input={
                 'name': 'myGlueDatabase',
                 'description': 'My PostgreSQL Database'
-            }
+            },
+            catalog_id=glue_connection.catalog_id
         )
