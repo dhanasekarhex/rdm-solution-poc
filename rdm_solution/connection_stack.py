@@ -50,7 +50,7 @@ class ConnectionStack(Stack):
         # Create a Glue crawler to discover tables in the RDS Instance
         rds_crawler = glue.CfnCrawler(
             self, "RDSCrawler", 
-            role=glue_role,
+            role=glue_role.role_arn,
             database_name=glue_database.ref,
             targets={
                 "jdbcTargets": [{
