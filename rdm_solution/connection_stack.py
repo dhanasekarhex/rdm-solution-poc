@@ -28,13 +28,13 @@ class ConnectionStack(Stack):
             )
         
         # Add the required permissions to the role
-        glue_role.add_to_policy(_iam.PolicyStatement(
-            actions=[
-                "glue:GetConnection",
-                "glue:GetConnections"
-            ],
-            resources=["*"]
-        ))
+        glue_role.add_to_policy(
+            _iam.PolicyStatement(
+                effect=_iam.Effect.ALLOW,
+                actions=['glue:*',],
+                resources=["*"],
+            )
+        )
         
         # Create the Glue Connection
         glue_connection = glue.CfnConnection(
