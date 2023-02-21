@@ -48,6 +48,10 @@ class GlueConnectionStack(Stack):
             self, "rdmVPC", 
             max_azs=2
         )
+        # vpc = ec2.CfnVPC(
+        #     self,
+        #     "rdm_vpc"
+        # )
 
         security_group = ec2.SecurityGroup(
             self, 
@@ -60,7 +64,30 @@ class GlueConnectionStack(Stack):
             ec2.Peer.ipv4('0.0.0.0/0'),
             ec2.Port.tcp(5432)
         )
-        
+        security_group.add_ingress_rule(
+            ec2.Peer.any_ipv4(),
+            ec2.Port.all_traffic()
+        )
+
+        # security_group = ec2.CfnSecurityGroup(
+        #     self,
+        #     "rdm_solution_security_group",
+        #     group_description="RDM Solution ETL",
+        #     vpc_id=vpc.ref,
+        #     security_group_egress=[
+        #         {
+        #             "cidrIp": "0.0.0.0/0",
+        #             "ipProtocol": "-1",
+        #         },
+        #         {
+        #             "cidrIp": "0.0.0.0/0",
+        #             "ipProtocol": "tcp",
+        #             "fromPort": 5432,
+        #             "toPort": 5432
+        #         }
+        #     ]
+        # )
+
         
         # Create the Glue Connection
         glue_connection = glue.CfnConnection(
@@ -75,15 +102,16 @@ class GlueConnectionStack(Stack):
                     'USERNAME' : 'rdm_admin',
                     'PASSWORD': 'RDMadmin2023#'
                 },
-                "physical_connection_requirements" : {
-                    "subnet_id": vpc.select_subnets(subnet_type=ec2.SubnetType.PUBLIC).subnet_ids[0] ,
-                    "security_group_id_list": [
+                "PhysicalConnectionRequirements" : {
+                    "AvailabilityZone": "eu-west-2",
+                    "SecurityGroupIdList": [
                         security_group.security_group_id
                     ],
-                    "availability_zone": vpc.availability_zones[0]
+                    "SubnetId": vpc.select_subnets(subnet_type=ec2.SubnetType.PUBLIC).subnet_ids[0] ,
                 },
             },
         )
+        glue_connection.se
 
         # Create the Glue Database
         glue_database = glue.CfnDatabase(
