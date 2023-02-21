@@ -61,6 +61,7 @@ class GlueConnectionStack(Stack):
             ec2.Port.tcp(5432)
         )
         
+        
         # Create the Glue Connection
         glue_connection = glue.CfnConnection(
             self, "rdm_connection",
