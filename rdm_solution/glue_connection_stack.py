@@ -50,12 +50,6 @@ class GlueConnectionStack(Stack):
             subnet_configuration=[
                 ec2.SubnetConfiguration(
                     name="public", cidr_mask=24, subnet_type=ec2.SubnetType.PUBLIC
-                ),
-                ec2.SubnetConfiguration(
-                    name="app", cidr_mask=24, subnet_type=ec2.SubnetType.PRIVATE
-                ),
-                ec2.SubnetConfiguration(
-                    name="db", cidr_mask=24, subnet_type=ec2.SubnetType.ISOLATED
                 )
             ]
         )
