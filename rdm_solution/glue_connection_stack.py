@@ -131,7 +131,7 @@ class GlueConnectionStack(Stack):
             targets={
                 "jdbcTargets": [{
                         "connectionName": glue_connection.ref,
-                        "path": f'/postgres/dev/%'
+                        "path": f'postgres/dev/%'
                     }]
             },
             schema_change_policy={
