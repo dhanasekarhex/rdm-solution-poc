@@ -46,12 +46,7 @@ class GlueConnectionStack(Stack):
         # Create VPC and Security groups
         vpc = ec2.Vpc(
             self, "rdmVPC", 
-            max_azs=2,
-            subnet_configuration=[
-                ec2.SubnetConfiguration(
-                    name="public", cidr_mask=24, subnet_type=ec2.SubnetType.PUBLIC
-                )
-            ]
+            max_azs=2
         )
         sg = ec2.SecurityGroup(
             self, 
