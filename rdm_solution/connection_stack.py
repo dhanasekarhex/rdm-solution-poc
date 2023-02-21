@@ -23,11 +23,11 @@ class ConnectionStack(Stack):
         
         # Create the Glue Connection
         glue_connection = glue.CfnConnection(
-            self, "GlueConnection",
+            self, "RDSConnection",
             connection_input={
                 'name': 'PostgresqlConnection',
-                'connection_type' : 'JDBC',
-                'connection_properties': {
+                'connectionType' : 'JDBC',
+                'connectionProperties': {
                     'JDBC_CONNECTION_URL': f'jdbc:postgresql://rdm.c4lpxufomrfq.eu-west-2.rds.amazonaws.com:5432/postgres',
                     'JDBC_ENFORCE_SSL': 'false',
                     'USERNAME' : 'rdm_admin',
