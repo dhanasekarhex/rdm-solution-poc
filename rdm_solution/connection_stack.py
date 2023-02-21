@@ -39,9 +39,9 @@ class ConnectionStack(Stack):
 
         # Create the Glue Database
         glue_database = glue.CfnDatabase(
-            self, "GlueDatabase",
+            self, "glue_database",
             database_input={
-                'name': 'myGlueDatabase',
+                'name': 'rdm_glue_database',
                 'description': 'My PostgreSQL Database'
             },
             catalog_id=glue_connection.catalog_id
