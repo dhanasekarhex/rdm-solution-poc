@@ -74,9 +74,10 @@ class GlueConnectionStack(Stack):
                     'USERNAME' : 'rdm_admin',
                     'PASSWORD': 'RDMadmin2023#'
                 },
-                "physical_connection_requirements" : {
-                    "subnet_id": vpc.public_subnets[0].subnet_id,
-                    "security_group_id_list": [sg.security_group_id],
+                "PhysicalConnectionRequirements" : {
+                    "SubnetId": vpc.public_subnets[0].subnet_id,
+                    "SecurityGroupIdList": [sg.security_group_id],
+                    "AvailabilityZone": "eu-west-2"
                 },
             },
         )
