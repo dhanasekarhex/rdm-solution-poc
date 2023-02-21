@@ -88,7 +88,6 @@ class GlueConnectionStack(Stack):
         #     ]
         # )
 
-        
         # Create the Glue Connection
         glue_connection = glue.CfnConnection(
             self, "rdm_connection",
