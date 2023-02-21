@@ -44,7 +44,7 @@ jobs:
 
       - name: Start Glue Crawler
         run: |
-          aws glue start-crawler --name rdm_rds_crawler
+          aws glue start-crawler --name rdm_solution_crawler
         
   deploy-stage:
     runs-on: ubuntu-latest
