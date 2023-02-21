@@ -74,7 +74,11 @@ class ConnectionStack(Stack):
                     'JDBC_ENFORCE_SSL': 'false',
                     'USERNAME' : 'rdm_admin',
                     'PASSWORD': 'RDMadmin2023#'
-                }
+                },
+                "physical_connection_requirements" : {
+                    "subnet_id": vpc.public_subnets[0].subnet_id,
+                    "security_group_id_list": [sg.security_group_id],
+                },
             },
         )
 
@@ -87,7 +91,7 @@ class ConnectionStack(Stack):
             },
             catalog_id=glue_connection.catalog_id
         )
-
+        
 
         # Create a Glue crawler to discover tables in the RDS Instance
         rds_crawler = glue.CfnCrawler(
