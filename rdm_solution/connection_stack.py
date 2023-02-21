@@ -46,3 +46,31 @@ class ConnectionStack(Stack):
             },
             catalog_id=glue_connection.catalog_id
         )
+
+        # Create a Glue crawler to discover tables in the RDS Instance
+        rds_crawler = glue.CfnCrawler(
+            self, "RDSCrawler", 
+            role=glue_role,
+            database_name=glue_database.ref,
+            targets={
+                "jdbcTargets": [{
+                        "connectionName": glue_connection.ref,
+                        "path": f'/postgres/dev'
+                    }]
+            },
+            schema_change_policy={
+                "updateBehavior": "UPDATE_IN_DATABASE",
+                "deleteBehavior": "LOG"
+            },
+            configuration={
+                "Version": 1,
+                "CrawlerOutput": {
+                    "Partitions": {
+                        "AddOrUpdateBehavior": "InheritFromTable"
+                    },
+                    "Tables": {
+                        "AddOrUpdateBehavior": "MergeNewColumns"
+                    }
+                }
+            }
+            )
