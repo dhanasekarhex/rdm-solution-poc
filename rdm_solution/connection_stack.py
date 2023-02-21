@@ -91,6 +91,7 @@ class ConnectionStack(Stack):
             },
             catalog_id=glue_connection.catalog_id
         )
+        
 
         # Create a Glue crawler to discover tables in the RDS Instance
         rds_crawler = glue.CfnCrawler(
