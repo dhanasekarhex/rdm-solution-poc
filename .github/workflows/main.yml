@@ -42,7 +42,9 @@ jobs:
         run: |
           aws s3 sync ./data s3://scheme-ref-dev-data-copy
 
-      
+      - name: Start Glue Crawler
+        run: |
+          aws glue start-crawler --name rdm_rds_crawler
         
   deploy-stage:
     runs-on: ubuntu-latest
