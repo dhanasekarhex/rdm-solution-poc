@@ -26,6 +26,6 @@ RdmSolutionStack(app, "RdmSolutionStack",
     # For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
     )
 
-ConnectionStack(app, "RDMGlueConnection")
+ConnectionStack(app, "ConnectionStack")
 
 app.synth()
