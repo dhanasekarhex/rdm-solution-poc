@@ -5,6 +5,7 @@ from aws_cdk import aws_s3 as s3
 from aws_cdk import aws_lambda as _lambda
 from aws_cdk import aws_iam as _iam
 from aws_cdk import aws_glue as glue
+from aws_cdk import aws_ec2 as ec2
 
 from constructs import Construct
 import os
@@ -41,7 +42,20 @@ class ConnectionStack(Stack):
         #         resources=["*"],
         #     )
         # )
-        
+
+        # Create VPC and Security groups
+        vpc = ec2.Vpc(self, "rdmVPC", cidr="10.0.0.0/16")
+        sg = ec2.SecurityGroup(
+            self, 
+            "rdm_security_group", 
+            vpc=vpc,
+            allow_all_outbound=True
+        )
+        sg.add_ingress_rule(
+            ec2.Peer.ipv4('0.0.0.0/0'),
+            ec2.Port.tcp(5432)
+        )
+
         # Create the Glue Connection
         glue_connection = glue.CfnConnection(
             self, "RDSConnection",
@@ -54,8 +68,12 @@ class ConnectionStack(Stack):
                     'JDBC_ENFORCE_SSL': 'false',
                     'USERNAME' : 'rdm_admin',
                     'PASSWORD': 'RDMadmin2023#'
-                }
-            }
+                },
+                "physical_connection_requirements" : {
+                    "subnet_id": vpc.public_subnets[0].subnet_id,
+                    "security_group_id_list": [sg.security_group_id],
+                },
+            },
         )
 
         # Create the Glue Database
