@@ -23,18 +23,24 @@ class ConnectionStack(Stack):
                 managed_policies=[
                     _iam.ManagedPolicy.from_aws_managed_policy_name(
                         "service-role/AWSGlueServiceRole"
-                    )
+                    ),
+                    _iam.ManagedPolicy.from_aws_managed_policy_name(
+                        "AmazonS3FullAccess"
+                    ),
+                    _iam.ManagedPolicy.from_aws_managed_policy_name(
+                        "AmazonRDSFullAccess"
+                    ),
                 ]
             )
         
         # Add the required permissions to the role
-        glue_role.add_to_policy(
-            _iam.PolicyStatement(
-                effect=_iam.Effect.ALLOW,
-                actions=['glue:*',],
-                resources=["*"],
-            )
-        )
+        # glue_role.add_to_policy(
+        #     _iam.PolicyStatement(
+        #         effect=_iam.Effect.ALLOW,
+        #         actions=['glue:*',],
+        #         resources=["*"],
+        #     )
+        # )
         
         # Create the Glue Connection
         glue_connection = glue.CfnConnection(
