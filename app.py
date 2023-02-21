@@ -4,6 +4,7 @@ import os
 import aws_cdk as cdk
 
 from rdm_solution.rdm_solution_stack import RdmSolutionStack
+from rdm_solution.connection_stack import ConnectionStack
 
 
 app = cdk.App()
@@ -24,5 +25,7 @@ RdmSolutionStack(app, "RdmSolutionStack",
 
     # For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
     )
+
+ConnectionStack(app, "GlueConnection")
 
 app.synth()

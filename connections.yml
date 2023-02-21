@@ -1,0 +1,8 @@
+connections:
+  my-rds-connections:
+    type: JDBC
+    description: My RDS Connection
+    properties:
+      JDBC_CONNECTION_URL: jdbc:postgresql://rdm.c4lpxufomrfq.eu-west-2.rds.amazonaws.com:5432/postgres
+      USERNAME: admin
+      PASSWORD: test
