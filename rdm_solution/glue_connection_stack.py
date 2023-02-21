@@ -63,10 +63,10 @@ class GlueConnectionStack(Stack):
 
         # Create the Glue Connection
         glue_connection = glue.CfnConnection(
-            self, "RDSConnection",
+            self, "rdm_connection",
             catalog_id=self.account,
             connection_input={
-                'name': 'PostgresqlConnection',
+                'name': 'PostgresqlRDMConnection',
                 'connectionType' : 'JDBC',
                 'connectionProperties': {
                     'JDBC_CONNECTION_URL': f'jdbc:postgresql://rdm.c4lpxufomrfq.eu-west-2.rds.amazonaws.com:5432/postgres',
@@ -83,9 +83,9 @@ class GlueConnectionStack(Stack):
 
         # Create the Glue Database
         glue_database = glue.CfnDatabase(
-            self, "glue_database",
+            self, "rdm_glue_database",
             database_input={
-                'name': 'rdm_glue_database',
+                'name': 'rdm_solution_glue_database',
                 'description': 'My PostgreSQL Database'
             },
             catalog_id=glue_connection.catalog_id
@@ -94,9 +94,9 @@ class GlueConnectionStack(Stack):
 
         # Create a Glue crawler to discover tables in the RDS Instance
         rds_crawler = glue.CfnCrawler(
-            self, "RDSCrawler", 
+            self, "rds_crawler", 
             role=glue_role.role_arn,
-            name="rdm_rds_crawler",
+            name="rdm_solution_crawler",
             database_name=glue_database.ref,
             targets={
                 "jdbcTargets": [{
