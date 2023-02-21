@@ -21,8 +21,28 @@ class ConnectionStack(Stack):
                 assumed_by=_iam.ServicePrincipal('glue.amazonaws.com')
             )
         
-        # Create Glue Database
-        glue_database = glue.CfnDatabase(self, "GlueDatabase",
-                                        database_input={
-                                            "name": "glue_database"
-                                        })
+        # Create the Glue Connection
+        glue_connection = glue.CfnConnection(
+            self, "GlueConnection",
+            connection_input={
+                'name': 'PostgresqlConnection',
+                'connection_type' : 'JDBC',
+                'connection_properties': {
+                    'JDBC_CONNECTION_URL': f'jdbc:postgresql://rdm.c4lpxufomrfq.eu-west-2.rds.amazonaws.com:5432/postgres',
+                    'JDBC_ENFORCE_SSL': 'false',
+                    'USERNAME' : 'rdm_admin',
+                    'PASSWORD': 'RDMadmin2023#'
+                }
+            }
+        )
+
+        # Create the Glue Database
+        glue_database = glue.CfnDatabase(
+            self, "GlueDatabase",
+            database_input={
+                'name': 'myGlueDatabase',
+                'description': 'My PostgreSQL Database'
+            },
+            catalog_id=glue_connection.attr_catalog_id,
+            location_uri=glue_connection.attr_connection_url
+        )
