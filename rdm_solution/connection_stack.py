@@ -44,12 +44,18 @@ class ConnectionStack(Stack):
         # )
 
         # Create VPC and Security groups
-        vpc = ec2.Vpc(self, "rdmVPC", cidr="10.0.0.0/16")
+        vpc = ec2.Vpc(
+            self, "rdmVPC", 
+            cidr="10.0.0.0/16",
+            max_azs=2,
+            nat_gateways=1,
+        )
         sg = ec2.SecurityGroup(
             self, 
             "rdm_security_group", 
             vpc=vpc,
-            allow_all_outbound=True
+            allow_all_outbound=True,
+            security_group_name="rdm_security_group"
         )
         sg.add_ingress_rule(
             ec2.Peer.ipv4('0.0.0.0/0'),
