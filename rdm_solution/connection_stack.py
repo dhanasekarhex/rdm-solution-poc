@@ -78,11 +78,5 @@ class ConnectionStack(Stack):
                 "updateBehavior": "UPDATE_IN_DATABASE",
                 "deleteBehavior": "LOG"
             },
-            configuration={
-                "Version": 1.0,
-                "CrawlerOutput": {
-                "Partitions": { "AddOrUpdateBehavior": "InheritFromTable" },
-                "Tables": {"AddOrUpdateBehavior": "MergeNewColumns" }
-                }
-            }
+            configuration="{\"Version\":1.0,\"CrawlerOutput\":{\"Partitions\":{\"AddOrUpdateBehavior\":\"InheritFromTable\"},\"Tables\":{\"AddOrUpdateBehavior\":\"MergeNewColumns\"}}}"
             )
