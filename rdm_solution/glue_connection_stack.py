@@ -48,14 +48,15 @@ class GlueConnectionStack(Stack):
             self, "rdmVPC", 
             max_azs=2
         )
-        sg = ec2.SecurityGroup(
+
+        security_group = ec2.SecurityGroup(
             self, 
             "rdm_security_group", 
             vpc=vpc,
             allow_all_outbound=True,
             security_group_name="rdm_security_group"
         )
-        sg.add_ingress_rule(
+        security_group.add_ingress_rule(
             ec2.Peer.ipv4('0.0.0.0/0'),
             ec2.Port.tcp(5432)
         )
@@ -73,10 +74,12 @@ class GlueConnectionStack(Stack):
                     'USERNAME' : 'rdm_admin',
                     'PASSWORD': 'RDMadmin2023#'
                 },
-                "PhysicalConnectionRequirements" : {
-                    "SubnetId": vpc.public_subnets[0].subnet_id,
-                    "SecurityGroupIdList": [sg.security_group_id],
-                    "AvailabilityZone": "eu-west-2"
+                "physical_connection_requirements" : {
+                    "subnet_id": vpc.select_subnets(subnet_type=ec2.SubnetType.PUBLIC).subnet_ids[0] ,
+                    "security_group_id_list": [
+                        security_group.security_group_id
+                    ],
+                    "availability_zone": vpc.availability_zones[0]
                 },
             },
         )
