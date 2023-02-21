@@ -24,6 +24,7 @@ class ConnectionStack(Stack):
         # Create the Glue Connection
         glue_connection = glue.CfnConnection(
             self, "RDSConnection",
+            catalog_id=self.account,
             connection_input={
                 'name': 'PostgresqlConnection',
                 'connectionType' : 'JDBC',
