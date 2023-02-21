@@ -43,6 +43,5 @@ class ConnectionStack(Stack):
                 'name': 'myGlueDatabase',
                 'description': 'My PostgreSQL Database'
             },
-            catalog_id=glue_connection.attr_catalog_id,
-            location_uri=glue_connection.attr_connection_url
+            catalog_id="123456789012"
         )
