@@ -4,7 +4,7 @@ import os
 import aws_cdk as cdk
 
 from rdm_solution.rdm_solution_stack import RdmSolutionStack
-from rdm_solution.connection_stack import ConnectionStack
+from rdm_solution.glue_connection_stack import GlueConnectionStack
 
 
 app = cdk.App()
