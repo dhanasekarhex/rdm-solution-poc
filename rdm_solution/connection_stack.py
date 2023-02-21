@@ -18,8 +18,23 @@ class ConnectionStack(Stack):
         # Create IAM Glue role
         glue_role = _iam.Role(
                 self, "GlueRole",
-                assumed_by=_iam.ServicePrincipal('glue.amazonaws.com')
+                assumed_by=_iam.ServicePrincipal('glue.amazonaws.com'),
+                description="Role for Glue Crawler",
+                managed_policies=[
+                    _iam.ManagedPolicy.from_aws_managed_policy_name(
+                        "service-role/AWSGlueServiceRole"
+                    )
+                ]
             )
+        
+        # Add the required permissions to the role
+        glue_role.add_to_policy(_iam.PolicyStatement(
+            actions=[
+                "glue:GetConnection",
+                "glue:GetConnections"
+            ],
+            resources=["*"]
+        ))
         
         # Create the Glue Connection
         glue_connection = glue.CfnConnection(
@@ -51,6 +66,7 @@ class ConnectionStack(Stack):
         rds_crawler = glue.CfnCrawler(
             self, "RDSCrawler", 
             role=glue_role.role_arn,
+            name="rdm_rds_crawler",
             database_name=glue_database.ref,
             targets={
                 "jdbcTargets": [{
@@ -61,5 +77,6 @@ class ConnectionStack(Stack):
             schema_change_policy={
                 "updateBehavior": "UPDATE_IN_DATABASE",
                 "deleteBehavior": "LOG"
-            }
+            },
+            configuration="my_configuration"
             )
