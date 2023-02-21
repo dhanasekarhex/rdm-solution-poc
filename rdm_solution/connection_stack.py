@@ -61,16 +61,5 @@ class ConnectionStack(Stack):
             schema_change_policy={
                 "updateBehavior": "UPDATE_IN_DATABASE",
                 "deleteBehavior": "LOG"
-            },
-            configuration={
-                "Version": 1,
-                "CrawlerOutput": {
-                    "Partitions": {
-                        "AddOrUpdateBehavior": "InheritFromTable"
-                    },
-                    "Tables": {
-                        "AddOrUpdateBehavior": "MergeNewColumns"
-                    }
-                }
             }
             )
