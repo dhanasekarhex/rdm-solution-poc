@@ -140,3 +140,34 @@ class GlueConnectionStack(Stack):
             },
             configuration="{\"Version\":1.0,\"CrawlerOutput\":{\"Partitions\":{\"AddOrUpdateBehavior\":\"InheritFromTable\"},\"Tables\":{\"AddOrUpdateBehavior\":\"MergeNewColumns\"}}}"
             )
+        
+        # Wait for the Crawler to finish
+        
+        
+        # table_mappings = {
+        #     "COUNTRY_INFO": {
+        #         "source": "s3://scheme-ref-dev-data-copy/COUNTRY.txt",
+        #         "mapping": {
+        #             "COUNTRY_CODE": "COUNTRY_CODE",
+        #             "COUNTRY_NAME": "COUNTRY_NAME"
+        #         }
+        #     }
+        # }
+        
+        # # Glue Job stuff
+        # glue_job = glue.CfnJob(
+        #     self, "RDMSolutionGlueJob",
+        #     command=glue.CfnJob.JobCommandProperty(
+        #         name="glue_poc",
+        #         python_version="3",
+        #         script_location=f"s3://etl-glue-scripts"
+        #     ),
+        #     role=glue_role.role_arn,
+        #     connections={
+        #         "connections": [glue_connection.ref]
+        #     },
+        #     default_arguments={
+        #         "--job-language": "python",
+        #         "--job-bookmark-option": "job-bookmark-disable"
+        #     }
+        # )

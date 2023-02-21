@@ -43,3 +43,13 @@ jobs:
       - name: Start Glue Crawler
         run: |
           aws glue start-crawler --name rdm_solution_crawler
+
+      - name: Wait for Glue Crawler to finish
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: eu-west-2
+        run: |
+          stack_name=$(aws cloudformation describe-stack-resources --stack-name my-stack --logical-resource-id GlueStack --query "StackResources[0].PhysicalResourceId" --output text) 
+          crawler_name=$(aws glue list-crawlers --query "CrawlerNames[?contains(@,\`${stack_name}\`)].[?contains(@,\`rdm_solution_crawler\`)][0]" --output text) 
+          while [[ $(aws glue get-crawler --name "${crawler_name}" --query "Crawler.State") =~ ^(RUNNING|STOPPING)$ ]]; do sleep 30; done
