@@ -37,7 +37,7 @@ jobs:
       - name: Install dependencies from requirements.txt
         run: pip install -r requirements.txt
       - name: Deploy dev CDK environment
-        run: cdk deploy --all --require-approval never
+        run: cdk deploy --all --force --require-approval never
       - name: Sync local files to S3
         run: |
           aws s3 sync ./data s3://scheme-ref-dev-data-copy
