@@ -168,9 +168,6 @@ class GlueConnectionStack(Stack):
             glue_version="3.0",
             max_capacity=2,
             timeout=2880,
-            execution_property={
-                'MaxConcurrentRuns': 1
-            },
             connections={
                 "connections": [glue_connection.ref]
             },
@@ -182,7 +179,7 @@ class GlueConnectionStack(Stack):
                 "--enable-job-insights": "true",
                 "--enable-glue-datacatalog": "true",
                 "--enable-continuous-cloudwatch-log": "true",
-                "--TempDir": f"s3://etl-glue-scripts/temporary"
+                "--TempDir": "s3://etl-glue-scripts/temporary"
             }
         )
 
