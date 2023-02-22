@@ -6,6 +6,8 @@ from aws_cdk import aws_lambda as _lambda
 from aws_cdk import aws_iam as _iam
 from aws_cdk import aws_glue as glue
 from aws_cdk import aws_ec2 as ec2
+from aws_cdk import aws_s3_deployment as s3deploy
+from aws_cdk import aws_s3_assets as s3_assets
 
 from constructs import Construct
 import os
@@ -185,14 +187,86 @@ class GlueConnectionStack(Stack):
             }
         )
 
+        # Define the Glue Script inline
+        script = """
+        import sys
+        from awsglue.transforms import *
+        from awsglue.utils import getResolvedOptions
+        from pyspark.context import SparkContext
+        from awsglue.context import GlueContext
+        from awsglue.job import Job
 
-        table_locations = [{
+
+        mapping_dict = [{
             "table_name":"postgres_dev_country_info",
-            "s3_path": "COUNTRY.txt"
+            "s3_path": "s3://scheme-ref-dev-data-copy/COUNTRY.txt",
+            "field_mapping":[
+                ("COUNTRY_CODE", "string", "COUNTRY_CODE", "string"),
+                ("COUNTRY_NAME", "string", "COUNTRY_NAME", "string"),
+            ]
         }]
-        
-        # for i, locations in enumerate(table_locations):
-        #     table_name = locations["table_name"]
-        #     s3_path = locations["s3_path"]
 
-        #     source_dynamic_frame = glue.
+        args = getResolvedOptions(sys.argv, ["JOB_NAME"])
+        sc = SparkContext()
+        glueContext = GlueContext(sc)
+        spark = glueContext.spark_session
+        job = Job(glueContext)
+        job.init(args["JOB_NAME"], args)
+
+
+        for item in mapping_dict:
+            # Script generated for node S3 bucket
+            S3bucket_node1 = glueContext.create_dynamic_frame.from_options(
+                format_options={
+                    "quoteChar": '"',
+                    "withHeader": True,
+                    "separator": "|",
+                    "optimizePerformance": False,
+                },
+                connection_type="s3",
+                format="csv",
+                connection_options={
+                    "paths": [item["s3_path"]],
+                    "recurse": True,
+                },
+                transformation_ctx="S3bucket_node1",
+            )
+
+            # Script generated for node ApplyMapping
+            ApplyMapping_node2 = ApplyMapping.apply(
+                frame=S3bucket_node1,
+                mappings=item["field_mapping"],
+                transformation_ctx="ApplyMapping_node2",
+            )
+
+            # Script generated for node PostgreSQL table
+            PostgreSQLtable_node3 = glueContext.write_dynamic_frame.from_catalog(
+                frame=ApplyMapping_node2,
+                database="rdm_solution_glue_database",
+                table_name=item["table_name"],
+                transformation_ctx="PostgreSQLtable_node3",
+            )
+
+        job.commit()
+
+
+        """
+
+        # Write the script contents to a file
+        with open("poc_rdm_etl_cdk.py", "w") as file:
+            file.write(script)
+
+        # Create an asset from the script contents
+        script_asset = s3_assets.Asset(
+            self, "ETLAsset",
+            path="poc_rdm_etl_cdk.py"
+        )
+        
+        # Upload the asset to the bucket
+        script_object = s3deploy.BucketDeployment(
+            self, "DeployETLScript",
+            sources=[s3deploy.Source.asset(script_asset)],
+            destination_bucket="etl-glue-scripts/scripts/",
+            destination_key_prefix="poc_rdm_etl_cdk.py"
+        )
+    
