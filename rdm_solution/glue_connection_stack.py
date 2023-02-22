@@ -45,8 +45,32 @@ class GlueConnectionStack(Stack):
 
         # Create VPC and Security groups
         vpc = ec2.Vpc(
-            self, "rdmVPC", 
-            max_azs=2
+            self, "rdm_vpc", 
+            max_azs=2,
+            nat_gateway_provider=ec2.NatProvider.gateway(),
+            nat_gateway_subnets=ec2.SubnetSelection(
+                subnet_type=ec2.SubnetType.PUBLIC
+            ),
+            vpn_gateway=False,
+            subnet_configuration=[
+                ec2.SubnetConfiguration(
+                    name='Public',
+                    subnet_type=ec2.SubnetType.PUBLIC,
+                    cidr_mask=24
+                ),
+                ec2.SubnetConfiguration(
+                    name='Private',
+                    subnet_type=ec2.SubnetType.PRIVATE_WITH_NAT,
+                    cidr_mask=24
+                )
+            ],
+            gateway_endpoints={
+                'S3': ec2.GatewayVpcEndpointOptions(
+                    service=ec2.GatewayVpcEndpointAwsService.S3,
+                    subnets=[ec2.SubnetSelection(subnet_type=ec2.SubnetType.PRIVATE_WITH_NAT)]
+                )
+            },
+            region='eu-west-2'
         )
         # vpc = ec2.CfnVPC(
         #     self,
