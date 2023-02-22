@@ -255,7 +255,7 @@ class GlueConnectionStack(Stack):
         # Create an asset from the script contents
         script_asset = s3_assets.Asset(
             self, "ETLAsset",
-            path="./"
+            path=os.path.join(DIRNAME, "etl_script")
         )
 
         # Write the script contents to a file
