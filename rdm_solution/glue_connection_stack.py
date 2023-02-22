@@ -163,9 +163,15 @@ class GlueConnectionStack(Stack):
                 script_location=f"s3://etl-glue-scripts/poc_rdm_etl_cdk.py"
             ),
             role=glue_role.role_arn,
-            worker_type="Standard",
+            worker_type="G.1X",
+            number_of_workers=5,
             number_of_workers=10,
             glue_version="3.0",
+            max_capacity=2,
+            timeout=2880,
+            execution_property={
+                'MaxConcurrentRuns': 1
+            },
             connections={
                 "connections": [glue_connection.ref]
             },
@@ -177,7 +183,7 @@ class GlueConnectionStack(Stack):
                 "--enable-job-insights": "true",
                 "--enable-glue-datacatalog": "true",
                 "--enable-continuous-cloudwatch-log": "true",
-                "--TempDir": f"s3://etl-glue-scripts/temporary/"
+                "--TempDir": f"s3://etl-glue-scripts/temporary"
             }
         )
 
