@@ -164,7 +164,6 @@ class GlueConnectionStack(Stack):
             ),
             role=glue_role.role_arn,
             worker_type="G.1X",
-            number_of_workers=5,
             number_of_workers=10,
             glue_version="3.0",
             max_capacity=2,
