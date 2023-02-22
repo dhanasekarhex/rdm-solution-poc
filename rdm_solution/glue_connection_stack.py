@@ -166,7 +166,6 @@ class GlueConnectionStack(Stack):
             worker_type="G.1X",
             number_of_workers=10,
             glue_version="3.0",
-            max_capacity=2,
             timeout=2880,
             connections={
                 "connections": [glue_connection.ref]
