@@ -69,8 +69,7 @@ class GlueConnectionStack(Stack):
                     service=ec2.GatewayVpcEndpointAwsService.S3,
                     subnets=[ec2.SubnetSelection(subnet_type=ec2.SubnetType.PRIVATE_WITH_NAT)]
                 )
-            },
-            region='eu-west-2'
+            }
         )
         # vpc = ec2.CfnVPC(
         #     self,
