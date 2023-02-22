@@ -155,19 +155,35 @@ class GlueConnectionStack(Stack):
         # }
         
         # # Glue Job stuff
-        # glue_job = glue.CfnJob(
-        #     self, "RDMSolutionGlueJob",
-        #     command=glue.CfnJob.JobCommandProperty(
-        #         name="glue_poc",
-        #         python_version="3",
-        #         script_location=f"s3://etl-glue-scripts"
-        #     ),
-        #     role=glue_role.role_arn,
-        #     connections={
-        #         "connections": [glue_connection.ref]
-        #     },
-        #     default_arguments={
-        #         "--job-language": "python",
-        #         "--job-bookmark-option": "job-bookmark-disable"
-        #     }
-        # )
+        glue_job = glue.CfnJob(
+            self, "RDMSolutionGlueJob",
+            command=glue.CfnJob.JobCommandProperty(
+                name="glue_poc",
+                python_version="3",
+                script_location=f"s3://etl-glue-scripts/poc_rdm_etl_cdk.py"
+            ),
+            role=glue_role.role_arn,
+            worker_type="Standard",
+            number_of_workers=1,
+            max_capacity=10,
+            glue_version="2.0",
+            connections={
+                "connections": [glue_connection.ref]
+            },
+            default_arguments={
+                "--job-language": "python",
+                "--job-bookmark-option": "job-bookmark-disable"
+            }
+        )
+
+
+        table_locations = [{
+            "table_name":"postgres_dev_country_info",
+            "s3_path": "COUNTRY.txt"
+        }]
+        
+        # for i, locations in enumerate(table_locations):
+        #     table_name = locations["table_name"]
+        #     s3_path = locations["s3_path"]
+
+        #     source_dynamic_frame = glue.
