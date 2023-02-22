@@ -255,23 +255,23 @@ class GlueConnectionStack(Stack):
         # Create an asset from the script contents
         script_asset = s3_assets.Asset(
             self, "ETLAsset",
-            path=os.path.join(DIRNAME, "etl_script")
+            path=os.path.join(DIRNAME, "etl_script/poc_rdm_etl_cdk.py")
         )
 
         # Write the script contents to a file
-        # with open(script_asset.asset_path, "w") as file:
-        #     file.write(script)
+        with open(script_asset.asset_path, "w") as file:
+            file.write(script)
 
         # Add the Script contents to the asset
         # script_asset.add_resource_metadata(
         #     "poc_rdm_etl_cdk.py",
         #     script.encode("utf-8"),
         # )
-        script_asset.add_resource_metadata({
-            "Content-Type": "text/plain",
-            "Cache-Control": "no-cache"
-        })
-        script_asset.add_resource_metadata(script.encode("utf-8"))
+        # script_asset.add_resource_metadata({
+        #     "Content-Type": "text/plain",
+        #     "Cache-Control": "no-cache"
+        # })
+        # script_asset.add_resource_metadata(script.encode("utf-8"))
         
         # Upload the asset to the bucket
         script_object = s3deploy.BucketDeployment(
