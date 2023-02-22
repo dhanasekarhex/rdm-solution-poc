@@ -160,7 +160,7 @@ class GlueConnectionStack(Stack):
             command=glue.CfnJob.JobCommandProperty(
                 name="glue_poc",
                 python_version="3",
-                script_location=f"s3://etl-glue-scripts/poc_rdm_etl_cdk.py"
+                script_location="s3://etl-glue-scripts/glue-scripts/poc_rdm_etl_cdk.py"
             ),
             role=glue_role.role_arn,
             worker_type="G.1X",
@@ -178,7 +178,7 @@ class GlueConnectionStack(Stack):
                 "--enable-job-insights": "true",
                 "--enable-glue-datacatalog": "true",
                 "--enable-continuous-cloudwatch-log": "true",
-                "--TempDir": "s3://etl-glue-scripts/temporary"
+                "--TempDir": "s3://etl-glue-scripts/glue-temp"
             }
         )
 
