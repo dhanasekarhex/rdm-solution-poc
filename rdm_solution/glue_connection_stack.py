@@ -45,7 +45,7 @@ class GlueConnectionStack(Stack):
 
         # Create VPC and Security groups
         vpc = ec2.Vpc(
-            self, "rdm_vpc", 
+            self, "rds_rdm_vpc", 
             max_azs=2
         )
         # vpc = ec2.CfnVPC(
@@ -55,10 +55,10 @@ class GlueConnectionStack(Stack):
 
         security_group = ec2.SecurityGroup(
             self, 
-            "rdm_security_group", 
+            "rds_rdm_security_group", 
             vpc=vpc,
             allow_all_outbound=True,
-            security_group_name="rdm_security_group"
+            security_group_name="rds_rdm_security_group"
         )
         security_group.add_ingress_rule(
             ec2.Peer.ipv4('0.0.0.0/0'),
