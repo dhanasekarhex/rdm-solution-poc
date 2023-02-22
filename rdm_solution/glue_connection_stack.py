@@ -163,12 +163,21 @@ class GlueConnectionStack(Stack):
                 script_location=f"s3://etl-glue-scripts/poc_rdm_etl_cdk.py"
             ),
             role=glue_role.role_arn,
+            worker_type="Standard",
+            number_of_workers=10,
+            glue_version="3.0",
             connections={
                 "connections": [glue_connection.ref]
             },
             default_arguments={
                 "--job-language": "python",
-                "--job-bookmark-option": "job-bookmark-disable"
+                "--job-bookmark-option": "job-bookmark-disable",
+                "--enable-metrics" : "true",
+                "--enable-spark-ui": "true",
+                "--enable-job-insights": "true",
+                "--enable-glue-datacatalog": "true",
+                "--enable-continuous-cloudwatch-log": "true",
+                "--TempDir": f"s3://etl-glue-scripts/temporary/"
             }
         )
 
