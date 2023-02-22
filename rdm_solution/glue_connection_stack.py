@@ -160,7 +160,7 @@ class GlueConnectionStack(Stack):
             command=glue.CfnJob.JobCommandProperty(
                 name="glue_poc",
                 python_version="3",
-                script_location="s3://etl-glue-scripts/glue-scripts/poc_rdm_etl_cdk.py"
+                script_location="s3://etl-glue-scripts/scripts/poc_rdm_etl_cdk.py"
             ),
             role=glue_role.role_arn,
             worker_type="G.1X",
@@ -175,10 +175,11 @@ class GlueConnectionStack(Stack):
                 "--job-bookmark-option": "job-bookmark-disable",
                 "--enable-metrics" : "true",
                 "--enable-spark-ui": "true",
+                "--spark-event-logs-path": "s3://etl-glue-scripts/sparkHistoryLogs/",
                 "--enable-job-insights": "true",
                 "--enable-glue-datacatalog": "true",
                 "--enable-continuous-cloudwatch-log": "true",
-                "--TempDir": "s3://etl-glue-scripts/glue-temp"
+                "--TempDir": "s3://etl-glue-scripts/temporary/"
             }
         )
 
