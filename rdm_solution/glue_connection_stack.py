@@ -265,7 +265,7 @@ class GlueConnectionStack(Stack):
         # Add the Script contents to the asset
         script_asset.add_resource_metadata(
             "poc_rdm_etl_cdk.py",
-            content=script.encode("utf-8"),
+            script.encode("utf-8"),
         )
         
         # Upload the asset to the bucket
