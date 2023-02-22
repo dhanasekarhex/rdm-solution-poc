@@ -263,10 +263,15 @@ class GlueConnectionStack(Stack):
         #     file.write(script)
 
         # Add the Script contents to the asset
-        script_asset.add_resource_metadata(
-            "poc_rdm_etl_cdk.py",
-            script.encode("utf-8"),
-        )
+        # script_asset.add_resource_metadata(
+        #     "poc_rdm_etl_cdk.py",
+        #     script.encode("utf-8"),
+        # )
+        script_asset.add_resource_metadata({
+            "Content-Type": "text/plain",
+            "Cache-Control": "no-cache"
+        })
+        script_asset.add_resource_metadata(script.encode("utf-8"))
         
         # Upload the asset to the bucket
         script_object = s3deploy.BucketDeployment(
