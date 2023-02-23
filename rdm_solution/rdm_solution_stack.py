@@ -44,15 +44,15 @@ class RdmSolutionStack(Stack):
         event_rule = events.Rule(
             self,
             "StartGlueJobRule",
-            event_pattern=events.EventPattern(
-                detail_type=["Glue Crawler State Change"],
-                source=["aws.glue"],
-                detail={
-                    "state":["SUCCEEDED"],
-                    "crawlerName": ["rdm_solution_crawler"]
-                }
-            )
+            event_pattern={
+                "source": ["aws.glue"],
+                "detail_type": ["Glue Crawler State Change"],
+                "detail": {
+                    "crawlerName": ["rdm_solution_crawler"],
+                    "state":["READY"]
+                },
+            }
         )
 
-        event_rule.add_target(targets.LambdaFunction(s3_lambda_sync_fn))
+        event_rule.add_target(targets.LambdaFunction(handler=s3_lambda_sync_fn))
 

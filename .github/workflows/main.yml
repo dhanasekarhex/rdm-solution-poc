@@ -59,4 +59,4 @@ jobs:
           AWS_REGION: eu-west-2
           GLUE_JOB_NAME: glue_job_poc
         run: |
-          python -c "import boto3; client = boto3.client('events'); client.put_events(Entries=[{'Source': 'GlueApp', 'DetailType': 'Glue Crawler State Change', 'Detail': '{\"state\":\"SUCCEEDED\",\"crawlerName\":\"rdm_solution_crawler\"}'}])"
+          python -c "import boto3; client = boto3.client('events'); client.put_events(Entries=[{'Source': 'GlueApp', 'DetailType': 'Glue Crawler State Change', 'Detail': '{\"state\":\"READY\",\"crawlerName\":\"rdm_solution_crawler\"}'}])"
