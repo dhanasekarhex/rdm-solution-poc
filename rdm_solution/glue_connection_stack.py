@@ -36,7 +36,7 @@ response = s3.get_object(Bucket="etl-glue-scripts", Key="mappings.json")
 json_data = json.loads(response['Body'].read().decode('utf-8'))
 
 for i, item in enumerate(json_data):
-    if json_data["is_migrating"] == 1:
+    if item["is_migrating"] == 1:
         S3bucket_node = f'S3bucket_node{i+1}'
         ApplyMapping_node = f'ApplyMapping_node{i+2}'
         PostgreSQLtable_node = f'PostgreSQLtable_node{i+3}'
