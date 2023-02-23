@@ -260,7 +260,7 @@ class GlueConnectionStack(Stack):
         
         # Define the S3 key and filename for the Script
         s3_key = "poc_rdm_etl_cdk.py"
-        local_file_path = "./etl_script/poc_rdm_etl_cdk.py"
+        local_file_path = "etl_script/poc_rdm_etl_cdk.py"
 
         # Write the script contents to a file
         with open(local_file_path, "w") as file:
