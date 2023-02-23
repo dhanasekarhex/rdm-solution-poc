@@ -67,17 +67,11 @@ jobs:
       #     while [[ $(aws glue get-crawler --name "${crawler_name}" --query "Crawler.State") =~ ^(RUNNING|STOPPING)$ ]]; do sleep 30; done
 
       - name : Start Glue Job
-        uses: aws-actions/aws-cli@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-west-2
-          args: glue start-job-run --job-name glue_job_poc
         # env:
         #   AWS_REGION: eu-west-2
         #   GLUE_JOB_NAME: glue_job_poc
         # run: |
         #   python -c "import boto3; client = boto3.client('events'); client.put_events(Entries=[{'Source': 'GlueApp', 'DetailType': 'Glue Crawler State Change', 'Detail': '{\"state\":\"READY\",\"crawlerName\":\"rdm_solution_crawler\"}'}])"
         #if: github.event.detail.crawlerName == 'rdm_solution_crawler' && github.event.detail.state == 'READY'
-        # run: |
-        #   aws glue start-job-run --job-name glue_job_poc
+        run: |
+          aws glue start-job-run --job-name glue_job_poc
