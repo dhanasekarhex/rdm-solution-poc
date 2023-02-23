@@ -4,7 +4,8 @@
     "field_mapping":[
         ["COUNTRY_CODE", "string", "COUNTRY_CODE", "string"],
         ["COUNTRY_NAME", "string", "COUNTRY_NAME", "string"]
-    ]
+    ],
+    "is_migrating":1
 },
 {
     "table_name":"postgres_dev_ref_item_manuf_brand",
@@ -17,5 +18,6 @@
         ["RefDataId", "string", "META_INTEGRATION_ID", "bigint"],
         ["LoadDatetime", "string", "ValidFrom", "timestamp"],
         ["LastUpdatedDatetime", "string", "VaidTo", "timestamp"]
-    ]
+    ],
+    "is_migrating":0
 }]
