@@ -5,7 +5,7 @@
         ["COUNTRY_CODE", "string", "COUNTRY_CODE", "string"],
         ["COUNTRY_NAME", "string", "COUNTRY_NAME", "string"]
     ],
-    "is_migrating":0
+    "is_migrating":1
 },
 {
     "table_name":"postgres_dev_ref_item_manuf_brand",
@@ -19,5 +19,5 @@
         ["LoadDatetime", "string", "ValidFrom", "timestamp"],
         ["LastUpdatedDatetime", "string", "VaidTo", "timestamp"]
     ],
-    "is_migrating":1
+    "is_migrating":0
 }]
