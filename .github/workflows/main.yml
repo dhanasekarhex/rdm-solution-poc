@@ -46,7 +46,7 @@ jobs:
           aws glue start-crawler --name rdm_solution_crawler
           while true; do
             state=$(aws glue get-crawler --name rdm_solution_crawler --query 'Crawler.State' --output text)
-            if [[ "$state" == "READY"]]; then
+            if [[ "$state" == "READY" ]]; then
               break
             fi
             if [[ "$state" == "FAILED" ]]; then
