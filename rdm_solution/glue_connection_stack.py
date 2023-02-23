@@ -287,5 +287,5 @@ class GlueConnectionStack(Stack):
             self, "DeployETLScript",
             sources=[s3deploy.Source.asset("./tmp")],
             destination_bucket=script_bucket,
-            destination_key_prefix="scripts/poc_rdm_etl_cdk.py"
+            destination_key_prefix="scripts"
         )
