@@ -41,7 +41,7 @@ jobs:
           aws s3 sync ./data s3://scheme-ref-dev-data-copy
 
       - name: Start Glue Crawler
-        if: crawler
+        id: crawler
         run: |
           aws glue start-crawler --name rdm_solution_crawler
           while true; do
