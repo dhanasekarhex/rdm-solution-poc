@@ -1,0 +1,21 @@
+[{
+    "table_name":"postgres_dev_country_info",
+    "s3_path": "s3://scheme-ref-dev-data-copy/COUNTRY.txt",
+    "field_mapping":[
+        ["COUNTRY_CODE", "string", "COUNTRY_CODE", "string"],
+        ["COUNTRY_NAME", "string", "COUNTRY_NAME", "string"]
+    ]
+},
+{
+    "table_name":"postgres_dev_ref_item_manuf_brand",
+    "s3_path": "s3://scheme-ref-dev-data-copy/REF_ITEM_MANUF_BRAND.txt",
+    "field_mapping":[
+        ["COUNTRY_CODE", "string", "COUNTRY_CODE", "string"],
+        ["ITEM_MANUF_BRAND_CODE", "string", "ITEM_MANUF_BRAND_CODE", "string"],
+        ["ITEM_MANUF_BRAND_NAME", "string", "ITEM_MANUF_BRAND_NAME", "string"],
+        ["ACTIVE_FLAG", "string", "ACTIVE_FLAG", "string"],
+        ["RefDataId", "string", "META_INTEGRATION_ID", "bigint"],
+        ["LoadDatetime", "string", "ValidFrom", "timestamp"],
+        ["LastUpdatedDatetime", "string", "VaidTo", "timestamp"]
+    ]
+}]
