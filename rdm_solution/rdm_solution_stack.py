@@ -6,6 +6,8 @@ from aws_cdk import (
 from aws_cdk import aws_s3 as s3
 from aws_cdk import aws_lambda as _lambda
 from aws_cdk import aws_iam as _iam
+from aws_cdk import aws_events as events
+from aws_cdk import aws_events_targets as targets
 
 from constructs import Construct
 import os
@@ -37,3 +39,20 @@ class RdmSolutionStack(Stack):
 
         # add enviroment variable to lambda function
         s3_lambda_sync_fn.add_environment('ENV', "dev")
+
+        # Set up an Amazon EventBridge rule to trigger the Lambda function 
+        event_rule = events.Rule(
+            self,
+            "StartGlueJobRule",
+            event_pattern=events.EventPattern(
+                detail_type=["Glue Crawler State Change"],
+                source=["aws.glue"],
+                detail={
+                    "state":["SUCCEEDED"],
+                    "crawlerName": ["rdm_solution_crawler"]
+                }
+            )
+        )
+
+        event_rule.add_target(targets.LambdaFunction(s3_lambda_sync_fn))
+

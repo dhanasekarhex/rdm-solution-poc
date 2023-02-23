@@ -31,7 +31,7 @@ jobs:
       - name: Install CDK and Dependencies
         run: |
           python -m pip install --upgrade pip && \
-          pip install aws-cdk.aws-s3 aws-cdk.aws-lambda aws-cdk.aws-iam
+          pip install aws-cdk.aws-s3 aws-cdk.aws-lambda aws-cdk.aws-iam boto3
       - name: Install dependencies from requirements.txt
         run: pip install -r requirements.txt
       - name: Deploy dev CDK environment
@@ -53,3 +53,10 @@ jobs:
       #     stack_name=$(aws cloudformation describe-stack-resources --stack-name my-stack --logical-resource-id GlueStack --query "StackResources[0].PhysicalResourceId" --output text) 
       #     crawler_name=$(aws glue list-crawlers --query "CrawlerNames[?contains(@,\`${stack_name}\`)].[?contains(@,\`rdm_solution_crawler\`)][0]" --output text) 
       #     while [[ $(aws glue get-crawler --name "${crawler_name}" --query "Crawler.State") =~ ^(RUNNING|STOPPING)$ ]]; do sleep 30; done
+
+      - name : Start Glue Job
+        env:
+          AWS_REGION: eu-west-2
+          GLUE_JOB_NAME: glue_job_poc
+        run: |
+          python -c "import boto3; client = boto3.client('events'); client.put_events(Entries=[{'Source': 'GlueApp', 'DetailType': 'Glue Crawler State Change', 'Detail': '{\"state\":\"SUCCEEDED\",\"crawlerName\":\"rdm_solution_crawler\"}'}])"
