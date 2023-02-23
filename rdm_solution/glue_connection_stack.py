@@ -260,9 +260,10 @@ class GlueConnectionStack(Stack):
         
         # Define the S3 key and filename for the Script
         s3_key = "poc_rdm_etl_cdk.py"
+        local_file_path = "./etl_script/poc_rdm_etl_cdk.py"
 
         # Write the script contents to a file
-        with open("./poc_rdm_etl_cdk.py", "w") as file:
+        with open(local_file_path, "w") as file:
             file.write(script)
 
         # Add the Script contents to the asset
@@ -282,6 +283,6 @@ class GlueConnectionStack(Stack):
         script_object = s3deploy.BucketDeployment(
             self, "DeployETLScript",
             sources=[s3deploy.Source.asset(os.path.join(DIRNAME, "etl_script"))],
-            destination_bucket=script_bucket,
-            destination_key_prefix=f"scripts/{s3_key}"
+            destination_bucket="etl-glue-scripts",
+            destination_key_prefix="scripts/poc_rdm_etl_cdk.py"
         )
