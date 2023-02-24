@@ -70,6 +70,10 @@ for i, item in enumerate(json_data):
             database="rdm_solution_glue_database",
             table_name=item["table_name"],
             transformation_ctx=PostgreSQLtable_node,
+            additional_options={
+                "updateBehavior": "UPDATE_IN_DATABASE",
+                "primaryKey": item["primary_key"]
+            }
         )
 
         job.commit()
@@ -95,6 +99,12 @@ class GlueConnectionStack(Stack):
                     _iam.ManagedPolicy.from_aws_managed_policy_name(
                         "AmazonRDSFullAccess"
                     ),
+                    _iam.ManagedPolicy.from_aws_managed_policy_name(
+                        "service-role/AWSGlueServiceNotebookRole"
+                    ),
+                    _iam.ManagedPolicy.from_aws_managed_policy_name(
+                        "AmazonRDSDataFullAccess"
+                    )
                 ]
             )
         
