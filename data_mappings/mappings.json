@@ -19,5 +19,5 @@
         ["LoadDatetime", "string", "ValidFrom", "timestamp"],
         ["LastUpdatedDatetime", "string", "VaidTo", "timestamp"]
     ],
-    "is_migrating":0
+    "is_migrating":1
 }]
