@@ -9,7 +9,7 @@
     "primary_key": "META_INTEGRATION_ID",
     "is_distinct": 0,
     "is_sql_join": 0,
-    "distinct_columns": ""
+    "distinct_columns": []
 },
 {
     "table_name":"postgres_dev_ref_item_manuf_brand",
@@ -27,7 +27,7 @@
     "primary_key": "META_INTEGRATION_ID",
     "is_distinct": 0,
     "is_sql_join": 0,
-    "distinct_columns": ""
+    "distinct_columns": []
 },
 {
     "table_name":"postgres_public_ref_global_message",
@@ -40,5 +40,5 @@
     "primary_key": "META_INTEGRATION_ID",
     "is_distinct": 1,
     "is_sql_join": 0,
-    "distinct_columns": "GlobalMessage"
+    "distinct_columns": ["GlobalMessage"]
 }]

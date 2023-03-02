@@ -69,7 +69,8 @@ for i, item in enumerate(json_data):
         # Check is_distinct or not 
         if item["is_distinct"] == 1:
             # Script generated for node SQL Query
-            SqlQuery = 'select DISTINCT {item["distinct_columns"]} from myDataSource'
+            list_to_string = ",".join(item["distinct_columns"])
+            SqlQuery = f"select DISTINCT {list_to_string} from myDataSource"
             SQLQuery_node = sparkSqlQuery(
                 glueContext,
                 query=SqlQuery,
