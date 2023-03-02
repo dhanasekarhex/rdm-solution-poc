@@ -23,6 +23,7 @@ from awsglue.context import GlueContext
 from awsglue.job import Job
 import json
 import boto3
+from awsglue import DynamicFrame
 
 def sparkSqlQuery(glueContext, query, mapping, transformation_ctx) -> DynamicFrame:
     for alias, frame in mapping.items():
@@ -64,8 +65,8 @@ for i, item in enumerate(json_data):
             },
             transformation_ctx=S3bucket_node,
         )
-        # Check is_distinct or not 
-        if item["is_distinct"] == 1:
+        # Check is_drop_duplicates or not 
+        if item["is_drop_duplicates"] == 1:
             # Script generated for node SQL Query
             list_to_string = ",".join(item["distinct_columns"])
             SqlQuery = f"select DISTINCT {list_to_string} from myDataSource"
