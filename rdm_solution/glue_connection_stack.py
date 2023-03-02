@@ -23,7 +23,6 @@ from awsglue.context import GlueContext
 from awsglue.job import Job
 import json
 import boto3
-from awsglue import DynamicFrame
 
 def sparkSqlQuery(glueContext, query, mapping, transformation_ctx) -> DynamicFrame:
     for alias, frame in mapping.items():
@@ -44,12 +43,11 @@ json_data = json.loads(response['Body'].read().decode('utf-8'))
 
 for i, item in enumerate(json_data):
     if item["is_migrating"] == 1:
-        S3bucket_node = f'S3bucket_node{i}'
-        ApplyMapping_node = f'ApplyMapping_node{i}'
-        PostgreSQLtable_node = f'PostgreSQLtable_node{i}'
+        S3bucket_node = f'S3bucket_node{i+1}'
+        ApplyMapping_node = f'ApplyMapping_node{i+2}'
+        PostgreSQLtable_node = f'PostgreSQLtable_node{i+3}'
         SqlQuery = f'SqlQuery{i}'
         SQLQuery_node = f'SQLQuery_node{i}'
-        common_key = ""
         # Script generated for node S3 bucket
         S3bucket_node = glueContext.create_dynamic_frame.from_options(
             format_options={

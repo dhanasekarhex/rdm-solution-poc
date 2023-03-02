@@ -31,7 +31,7 @@
 },
 {
     "table_name":"postgres_public_ref_global_message",
-    "s3_path": "s3://scheme-ref-dev-data-copy/GlobalMessage.txt",
+    "s3_path": "s3://scheme-ref-dev-data-copy/GlobalMessages.txt",
     "field_mapping":[
         ["GlobalMessage", "string", "global_message", "string"],
         ["User", "string", "created_by", "string"]
