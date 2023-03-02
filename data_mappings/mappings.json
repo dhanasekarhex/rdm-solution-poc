@@ -6,7 +6,10 @@
         ["COUNTRY_NAME", "string", "COUNTRY_NAME", "string"]
     ],
     "is_migrating":0,
-    "primary_key": "META_INTEGRATION_ID"
+    "primary_key": "META_INTEGRATION_ID",
+    "is_distinct": 0,
+    "is_sql_join": 0,
+    "distinct_columns": ""
 },
 {
     "table_name":"postgres_dev_ref_item_manuf_brand",
@@ -21,5 +24,21 @@
         ["LastUpdatedDatetime", "string", "VaidTo", "timestamp"]
     ],
     "is_migrating":0,
-    "primary_key": "META_INTEGRATION_ID"
+    "primary_key": "META_INTEGRATION_ID",
+    "is_distinct": 0,
+    "is_sql_join": 0,
+    "distinct_columns": ""
+},
+{
+    "table_name":"postgres_public_ref_global_message",
+    "s3_path": "s3://scheme-ref-dev-data-copy/GlobalMessage.txt",
+    "field_mapping":[
+        ["GlobalMessage", "string", "global_message", "string"],
+        ["User", "string", "created_by", "string"]
+    ],
+    "is_migrating":1,
+    "primary_key": "META_INTEGRATION_ID",
+    "is_distinct": 1,
+    "is_sql_join": 0,
+    "distinct_columns": "GlobalMessage"
 }]

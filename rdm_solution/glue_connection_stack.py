@@ -23,6 +23,13 @@ from awsglue.context import GlueContext
 from awsglue.job import Job
 import json
 import boto3
+from awsglue import DynamicFrame
+
+def sparkSqlQuery(glueContext, query, mapping, transformation_ctx) -> DynamicFrame:
+    for alias, frame in mapping.items():
+        frame.toDF().createOrReplaceTempView(alias)
+    result = spark.sql(query)
+    return DynamicFrame.fromDF(result, glueContext, transformation_ctx)
 
 args = getResolvedOptions(sys.argv, ["JOB_NAME"])
 sc = SparkContext()
@@ -37,9 +44,12 @@ json_data = json.loads(response['Body'].read().decode('utf-8'))
 
 for i, item in enumerate(json_data):
     if item["is_migrating"] == 1:
-        S3bucket_node = f'S3bucket_node{i+1}'
-        ApplyMapping_node = f'ApplyMapping_node{i+2}'
-        PostgreSQLtable_node = f'PostgreSQLtable_node{i+3}'
+        S3bucket_node = f'S3bucket_node{i}'
+        ApplyMapping_node = f'ApplyMapping_node{i}'
+        PostgreSQLtable_node = f'PostgreSQLtable_node{i}'
+        SqlQuery = f'SqlQuery{i}'
+        SQLQuery_node = f'SQLQuery_node{i}'
+        common_key = ""
         # Script generated for node S3 bucket
         S3bucket_node = glueContext.create_dynamic_frame.from_options(
             format_options={
@@ -56,10 +66,23 @@ for i, item in enumerate(json_data):
             },
             transformation_ctx=S3bucket_node,
         )
+        # Check is_distinct or not 
+        if item["is_distinct"] == 1:
+            # Script generated for node SQL Query
+            SqlQuery = 'select DISTINCT {item["distinct_columns"]} from myDataSource'
+            SQLQuery_node = sparkSqlQuery(
+                glueContext,
+                query=SqlQuery,
+                mapping={"myDataSource": S3bucket_node},
+                transformation_ctx=SQLQuery_node,
+            )
+            common_key = SQLQuery_node
+        else:
+            common_key = S3bucket_node
         _field_mapping = [tuple(_item) for _item in item["field_mapping"]]
         # Script generated for node ApplyMapping
         ApplyMapping_node = ApplyMapping.apply(
-            frame=S3bucket_node,
+            frame=common_key,
             mappings=_field_mapping,
             transformation_ctx=ApplyMapping_node,
         )
