@@ -216,7 +216,7 @@
         ["LoadDatetime", "string", "meta_created_dts", "timestamp"],
         ["LastUpdatedDatetime", "string", "meta_updated_dts", "timestamp"]
     ],
-    "is_migrating":1,
+    "is_migrating":0,
     "primary_key": "META_INTEGRATION_ID",
     "is_drop_duplicates": 0,
     "is_sql_join": 0,
