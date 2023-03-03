@@ -12,6 +12,97 @@
     "distinct_columns": []
 },
 {
+    "table_name":"postgres_public_ref_country",
+    "s3_path": "s3://scheme-ref-dev-data-copy/REF_COUNTRY.txt",
+    "field_mapping":[
+        ["COUNTRY_CODE", "string", "country_code", "string"],
+        ["COUNTRY_NAME", "string", "country_name", "string"],
+        ["AVI_THRESHOLD", "string", "avi_threshold", "string"],
+        ["ACTIVE_FLAG", "string", "active_flag", "string"],
+        ["RefDataId", "string", "meta_integration_id", "bigint"],
+        ["LoadDatetime", "string", "meta_created_dts", "timestamp"],
+        ["LastUpdatedDatetime", "string", "meta_updated_dts", "timestamp"]
+    ],
+    "is_migrating":1,
+    "primary_key": "META_INTEGRATION_ID",
+    "is_drop_duplicates": 0,
+    "is_sql_join": 0,
+    "distinct_columns": []
+},
+{
+    "table_name":"postgres_public_ref_client",
+    "s3_path": "s3://scheme-ref-dev-data-copy/REF_CLIENT.txt",
+    "field_mapping":[
+        ["COUNTRY_CODE", "string", "country_code", "string"],
+        ["CLIENT_CODE", "string", "client_code", "string"],
+        ["CLIENT_NAME", "string", "client_name", "string"],
+        ["ACTIVE_FLAG", "string", "active_flag", "string"],
+        ["RefDataId", "string", "meta_integration_id", "bigint"],
+        ["LoadDatetime", "string", "meta_created_dts", "timestamp"],
+        ["LastUpdatedDatetime", "string", "meta_updated_dts", "timestamp"]
+    ],
+    "is_migrating":1,
+    "primary_key": "META_INTEGRATION_ID",
+    "is_drop_duplicates": 0,
+    "is_sql_join": 0,
+    "distinct_columns": []
+},
+{
+    "table_name":"postgres_public_ref_client_group",
+    "s3_path": "s3://scheme-ref-dev-data-copy/REF_CLIENT_GROUP.txt",
+    "field_mapping":[
+        ["COUNTRY_CODE", "string", "country_code", "string"],
+        ["CLIENT_GROUP_CODE", "string", "client_group_code", "string"],
+        ["CLIENT_GROUP_NAME", "string", "client_group_name", "string"],
+        ["OVERRIDE_MONTHS", "string", "override_months", "int"],
+        ["ACTIVE_FLAG", "string", "active_flag", "string"],
+        ["RefDataId", "string", "meta_integration_id", "bigint"],
+        ["LoadDatetime", "string", "meta_created_dts", "timestamp"],
+        ["LastUpdatedDatetime", "string", "meta_updated_dts", "timestamp"]
+    ],
+    "is_migrating":1,
+    "primary_key": "META_INTEGRATION_ID",
+    "is_drop_duplicates": 0,
+    "is_sql_join": 0,
+    "distinct_columns": []
+},
+{
+    "table_name":"postgres_public_ref_client_hier",
+    "s3_path": "s3://scheme-ref-dev-data-copy/REF_CLIENT_HIER.txt",
+    "field_mapping":[
+        ["COUNTRY_CODE", "string", "country_code", "string"],
+        ["CLIENT_CODE", "string", "client_code", "string"],
+        ["CLIENT_GROUP_CODE", "string", "client_group_code", "string"],
+        ["CLIENT_CATEGORY", "string", "client_category", "string"],
+        ["ACTIVE_FLAG", "string", "active_flag", "string"],
+        ["RefDataId", "string", "meta_integration_id", "bigint"],
+        ["LoadDatetime", "string", "meta_created_dts", "timestamp"],
+        ["LastUpdatedDatetime", "string", "meta_updated_dts", "timestamp"]
+    ],
+    "is_migrating":1,
+    "primary_key": "META_INTEGRATION_ID",
+    "is_drop_duplicates": 0,
+    "is_sql_join": 0,
+    "distinct_columns": []
+},
+{
+    "table_name":"postgres_public_ref_client_business_category",
+    "s3_path": "s3://scheme-ref-dev-data-copy/REF_CLIENT_BUSINESS_CATEGORY.txt",
+    "field_mapping":[
+        ["CLIENT_BUSINESS_CATEGORY_CODE", "string", "client_business_category_code", "string"],
+        ["CLIENT_BUSINESS_CATEGORY_NAME", "string", "client_business_category_name", "string"],
+        ["ACTIVE_FLAG", "string", "active_flag", "string"],
+        ["RefDataId", "string", "meta_integration_id", "bigint"],
+        ["LoadDatetime", "string", "meta_created_dts", "timestamp"],
+        ["LastUpdatedDatetime", "string", "meta_updated_dts", "timestamp"]
+    ],
+    "is_migrating":1,
+    "primary_key": "META_INTEGRATION_ID",
+    "is_drop_duplicates": 0,
+    "is_sql_join": 0,
+    "distinct_columns": []
+},
+{
     "table_name":"postgres_dev_ref_item_manuf_brand",
     "s3_path": "s3://scheme-ref-dev-data-copy/REF_ITEM_MANUF_BRAND.txt",
     "field_mapping":[
@@ -36,7 +127,7 @@
         ["GlobalMessage", "string", "global_message", "string"],
         ["User", "string", "created_by", "string"]
     ],
-    "is_migrating":1,
+    "is_migrating":0,
     "primary_key": "META_INTEGRATION_ID",
     "is_drop_duplicates": 1,
     "is_sql_join": 0,
