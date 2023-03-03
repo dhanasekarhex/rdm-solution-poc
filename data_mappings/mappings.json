@@ -1,17 +1,4 @@
 [{
-    "table_name":"postgres_dev_country_info",
-    "s3_path": "s3://scheme-ref-dev-data-copy/COUNTRY.txt",
-    "field_mapping":[
-        ["COUNTRY_CODE", "string", "COUNTRY_CODE", "string"],
-        ["COUNTRY_NAME", "string", "COUNTRY_NAME", "string"]
-    ],
-    "is_migrating":0,
-    "primary_key": "META_INTEGRATION_ID",
-    "is_drop_duplicates": 0,
-    "is_sql_join": 0,
-    "distinct_columns": []
-},
-{
     "table_name":"postgres_public_ref_country",
     "s3_path": "s3://scheme-ref-dev-data-copy/REF_COUNTRY.txt",
     "field_mapping":[
@@ -103,18 +90,208 @@
     "distinct_columns": []
 },
 {
-    "table_name":"postgres_dev_ref_item_manuf_brand",
+    "table_name":"postgres_public_ref_channel",
+    "s3_path": "s3://scheme-ref-dev-data-copy/REF_CHANNEL.txt",
+    "field_mapping":[
+        ["CHANNEL_CODE", "string", "channel_code", "string"],
+        ["CHANNEL_NAME", "string", "channel_name", "string"],
+        ["CHANNEL_CATEGORY_CODE", "string", "channel_category_code", "string"],
+        ["ACTIVE_FLAG", "string", "active_flag", "string"],
+        ["RefDataId", "string", "meta_integration_id", "bigint"],
+        ["LoadDatetime", "string", "meta_created_dts", "timestamp"],
+        ["LastUpdatedDatetime", "string", "meta_updated_dts", "timestamp"]
+    ],
+    "is_migrating":1,
+    "primary_key": "META_INTEGRATION_ID",
+    "is_drop_duplicates": 0,
+    "is_sql_join": 0,
+    "distinct_columns": []
+},
+{
+    "table_name":"postgres_public_ref_channel_group",
+    "s3_path": "s3://scheme-ref-dev-data-copy/REF_CHANNEL_GROUP.txt",
+    "field_mapping":[
+        ["CHANNEL_GROUP_CODE", "string", "channel_group_code", "string"],
+        ["channel_group_name", "string", "channel_group_name", "string"],
+        ["ACTIVE_FLAG", "string", "active_flag", "string"],
+        ["RefDataId", "string", "meta_integration_id", "bigint"],
+        ["LoadDatetime", "string", "meta_created_dts", "timestamp"],
+        ["LastUpdatedDatetime", "string", "meta_updated_dts", "timestamp"]
+    ],
+    "is_migrating":1,
+    "primary_key": "META_INTEGRATION_ID",
+    "is_drop_duplicates": 0,
+    "is_sql_join": 0,
+    "distinct_columns": []
+},
+{
+    "table_name":"postgres_public_ref_channel_hier",
+    "s3_path": "s3://scheme-ref-dev-data-copy/REF_CHANNEL_HIER.txt",
+    "field_mapping":[
+        ["CHANNEL_CODE", "string", "channel_code", "string"],
+        ["CHANNEL_GROUP_CODE", "string", "channel_group_code", "string"],
+        ["ACTIVE_FLAG", "string", "active_flag", "string"],
+        ["RefDataId", "string", "meta_integration_id", "bigint"],
+        ["LoadDatetime", "string", "meta_created_dts", "timestamp"],
+        ["LastUpdatedDatetime", "string", "meta_updated_dts", "timestamp"]
+    ],
+    "is_migrating":1,
+    "primary_key": "META_INTEGRATION_ID",
+    "is_drop_duplicates": 0,
+    "is_sql_join": 0,
+    "distinct_columns": []
+},
+{
+    "table_name":"postgres_public_ref_channel_category",
+    "s3_path": "s3://scheme-ref-dev-data-copy/REF_CHANNEL_CATEGORY.txt",
+    "field_mapping":[
+        ["CHANNEL_CATEGORY_CODE", "string", "channel_category_code", "string"],
+        ["CHANNEL_CATEGORY_NAME", "string", "channel_category_name", "string"],
+        ["ACTIVE_FLAG", "string", "active_flag", "string"],
+        ["RefDataId", "string", "meta_integration_id", "bigint"],
+        ["LoadDatetime", "string", "meta_created_dts", "timestamp"],
+        ["LastUpdatedDatetime", "string", "meta_updated_dts", "timestamp"]
+    ],
+    "is_migrating":1,
+    "primary_key": "META_INTEGRATION_ID",
+    "is_drop_duplicates": 0,
+    "is_sql_join": 0,
+    "distinct_columns": []
+},
+{
+    "table_name":"postgres_public_ref_company",
+    "s3_path": "s3://scheme-ref-dev-data-copy/REF_COMPANY.txt",
+    "field_mapping":[
+        ["COUNTRY_CODE", "string", "country_code", "string"],
+        ["COMPANY_CODE", "string", "company_code", "string"],
+        ["COMPANY_NAME", "string", "company_name", "string"],
+        ["ACTIVE_FLAG", "string", "active_flag", "string"],
+        ["RefDataId", "string", "meta_integration_id", "bigint"],
+        ["LoadDatetime", "string", "meta_created_dts", "timestamp"],
+        ["LastUpdatedDatetime", "string", "meta_updated_dts", "timestamp"]
+    ],
+    "is_migrating":1,
+    "primary_key": "META_INTEGRATION_ID",
+    "is_drop_duplicates": 0,
+    "is_sql_join": 0,
+    "distinct_columns": []
+},
+{
+    "table_name":"postgres_public_ref_comp_scheme_client_detail",
+    "s3_path": "s3://scheme-ref-dev-data-copy/REF_COMP_SCHEME_CLIENT_DETAIL.txt",
+    "field_mapping":[
+        ["COUNTRY_CODE", "string", "country_code", "string"],
+        ["COMPANY_CODE", "string", "company_code", "string"],
+        ["SCHEME_CODE", "string", "scheme_code", "string"],
+        ["CLIENT_GROUP_ID", "string", "client_group_id", "int"],
+        ["CLIENT_ACCOUNT_ID", "string", "client_account_id", "int"],
+        ["PULSE_ID", "string", "pulse_id", "int"],
+        ["CM_SOURCE_ID", "string", "cm_source_id", "int"],
+        ["SCHEME_NAME", "string", "scheme_name", "string"],
+        ["SCHEME_CATEGORY_CODE", "string", "scheme_category_code", "string"],
+        ["CLIENT_GROUP_DESC", "string", "client_group_desc", "string"],
+        ["CLIENT_ACCOUNT_DESC", "string", "client_account_desc", "string"],
+        ["ACTIVE_FLAG", "string", "active_flag", "string"],
+        ["RefDataId", "string", "meta_integration_id", "bigint"],
+        ["LoadDatetime", "string", "meta_created_dts", "timestamp"],
+        ["LastUpdatedDatetime", "string", "meta_updated_dts", "timestamp"]
+    ],
+    "is_migrating":1,
+    "primary_key": "META_INTEGRATION_ID",
+    "is_drop_duplicates": 0,
+    "is_sql_join": 0,
+    "distinct_columns": []
+},
+{
+    "table_name":"postgres_public_ref_contract_cover",
+    "s3_path": "s3://scheme-ref-dev-data-copy/REF_CONTRACT_COVER.txt",
+    "field_mapping":[
+        ["COUNTRY_CODE", "string", "country_code", "string"],
+        ["CONTRACT_MASTER_COVER_CODE", "string", "contract_master_cover_code", "string"],
+        ["CONTRACT_COVER_CODES", "string", "contract_cover_codes", "string"],
+        ["CONTRACT_COVER_EXCLUSION_CODES", "string", "contract_cover_exclusion_codes", "string"],
+        ["CONTRACT_CLAIM_DESIGNATION_CODES", "string", "contract_claim_designation_codes", "string"],
+        ["ACTIVE_FLAG", "string", "active_flag", "string"],
+        ["RefDataId", "string", "meta_integration_id", "bigint"],
+        ["LoadDatetime", "string", "meta_created_dts", "timestamp"],
+        ["LastUpdatedDatetime", "string", "meta_updated_dts", "timestamp"]
+    ],
+    "is_migrating":1,
+    "primary_key": "META_INTEGRATION_ID",
+    "is_drop_duplicates": 0,
+    "is_sql_join": 0,
+    "distinct_columns": []
+},
+{
+    "table_name":"postgres_public_ref_loc_category",
+    "s3_path": "s3://scheme-ref-dev-data-copy/REF_LOC_CATEGORY.txt",
+    "field_mapping":[
+        ["COUNTRY_CODE", "string", "country_code", "string"],
+        ["LOC_CATEGORY_CODE", "string", "loc_category_code", "string"],
+        ["LOC_CATEGORY_NAME", "string", "loc_category_name", "string"],
+        ["ACTIVE_FLAG", "string", "active_flag", "string"],
+        ["RefDataId", "string", "meta_integration_id", "bigint"],
+        ["LoadDatetime", "string", "meta_created_dts", "timestamp"],
+        ["LastUpdatedDatetime", "string", "meta_updated_dts", "timestamp"]
+    ],
+    "is_migrating":1,
+    "primary_key": "META_INTEGRATION_ID",
+    "is_drop_duplicates": 0,
+    "is_sql_join": 0,
+    "distinct_columns": []
+},
+{
+    "table_name":"postgres_public_ref_item_maker_family",
+    "s3_path": "s3://scheme-ref-dev-data-copy/REF_ITEM_MAKER_FAMILY.txt",
+    "field_mapping":[
+        ["COUNTRY_CODE", "string", "country_code", "string"],
+        ["ITEM_MAKER_CODE", "string", "item_maker_code", "string"],
+        ["ITEM_MAKER_DESCRIPTION", "string", "item_maker_description", "string"],
+        ["MULTIPLICATION_FACTOR", "string", "multiplication_factor", "decimal"],
+        ["GOODS_COLOUR", "string", "goods_colour", "string"],
+        ["ITEM_MAKER_FAMILY_CODE", "string", "item_maker_family_code", "string"],
+        ["ACTIVE_FLAG", "string", "active_flag", "string"],
+        ["RefDataId", "string", "meta_integration_id", "bigint"],
+        ["LoadDatetime", "string", "meta_created_dts", "timestamp"],
+        ["LastUpdatedDatetime", "string", "meta_updated_dts", "timestamp"]
+    ],
+    "is_migrating":1,
+    "primary_key": "META_INTEGRATION_ID",
+    "is_drop_duplicates": 0,
+    "is_sql_join": 0,
+    "distinct_columns": []
+},
+{
+    "table_name":"postgres_public_ref_item_manuf_brand",
     "s3_path": "s3://scheme-ref-dev-data-copy/REF_ITEM_MANUF_BRAND.txt",
     "field_mapping":[
-        ["COUNTRY_CODE", "string", "COUNTRY_CODE", "string"],
-        ["ITEM_MANUF_BRAND_CODE", "string", "ITEM_MANUF_BRAND_CODE", "string"],
-        ["ITEM_MANUF_BRAND_NAME", "string", "ITEM_MANUF_BRAND_NAME", "string"],
-        ["ACTIVE_FLAG", "string", "ACTIVE_FLAG", "string"],
-        ["RefDataId", "string", "META_INTEGRATION_ID", "bigint"],
-        ["LoadDatetime", "string", "ValidFrom", "timestamp"],
-        ["LastUpdatedDatetime", "string", "VaidTo", "timestamp"]
+        ["COUNTRY_CODE", "string", "country_code", "string"],
+        ["ITEM_MANUF_BRAND_CODE", "string", "item_manuf_brand_code", "string"],
+        ["ITEM_MANUF_BRAND_NAME", "string", "item_manuf_brand_name", "string"],
+        ["ACTIVE_FLAG", "string", "active_flag", "string"],
+        ["RefDataId", "string", "meta_integration_id", "bigint"],
+        ["LoadDatetime", "string", "meta_created_dts", "timestamp"],
+        ["LastUpdatedDatetime", "string", "meta_updated_dts", "timestamp"]
     ],
-    "is_migrating":0,
+    "is_migrating":1,
+    "primary_key": "META_INTEGRATION_ID",
+    "is_drop_duplicates": 0,
+    "is_sql_join": 0,
+    "distinct_columns": []
+},
+{
+    "table_name":"postgres_public_ref_item_goods_category",
+    "s3_path": "s3://scheme-ref-dev-data-copy/REF_ITEM_GOODS_CATEGORY.txt",
+    "field_mapping":[
+        ["COUNTRY_CODE", "string", "country_code", "string"],
+        ["ITEM_GOODS_CATEGORY_CODE", "string", "item_goods_category_code", "string"],
+        ["ITEM_GOODS_CATEGORY_NAME", "string", "item_goods_category_name", "string"],
+        ["ACTIVE_FLAG", "string", "active_flag", "string"],
+        ["RefDataId", "string", "meta_integration_id", "bigint"],
+        ["LoadDatetime", "string", "meta_created_dts", "timestamp"],
+        ["LastUpdatedDatetime", "string", "meta_updated_dts", "timestamp"]
+    ],
+    "is_migrating":1,
     "primary_key": "META_INTEGRATION_ID",
     "is_drop_duplicates": 0,
     "is_sql_join": 0,
