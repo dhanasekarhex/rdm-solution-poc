@@ -269,8 +269,8 @@
     "s3_path": "s3://scheme-ref-dev-data-copy/REF_ADDITIONAL_BENEFITS.txt",
     "field_mapping":[
         ["COUNTRY_CODE", "string", "country_code", "string"],
-        ["ADDITIONAL_BENEFITS_PROFILE", "string", "discount_profile", "string"],
-        ["ADDITIONAL_BENEFIT", "string", "discount_percentage", "string"],
+        ["ADDITIONAL_BENEFITS_PROFILE", "string", "additional_benefits_profile", "string"],
+        ["ADDITIONAL_BENEFIT", "string", "additional_benefit", "string"],
         ["ACTIVE_FLAG", "string", "active_flag", "string"],
         ["RefDataId", "string", "meta_integration_id", "bigint"],
         ["LoadDatetime", "string", "meta_created_dts", "timestamp"],
@@ -484,5 +484,5 @@
     "is_drop_duplicates": 1,
     "is_sql_join": 0,
     "distinct_columns": ["GlobalMessage"]
-    
+
 }]
