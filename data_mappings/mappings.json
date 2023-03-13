@@ -93,9 +93,9 @@
     "table_name":"postgres_public_ref_channel",
     "s3_path": "s3://scheme-ref-dev-data-copy/REF_CHANNEL.txt",
     "field_mapping":[
+        ["COUNTRY_CODE", "string", "country_code", "string"],
         ["CHANNEL_CODE", "string", "channel_code", "string"],
-        ["CHANNEL_NAME", "string", "channel", "string"],
-        ["CHANNEL_CATEGORY_CODE", "string", "channel_category_code", "string"],
+        ["CHANNEL", "string", "channel", "string"],
         ["ACTIVE_FLAG", "string", "active_flag", "string"],
         ["RefDataId", "string", "meta_integration_id", "bigint"],
         ["LoadDatetime", "string", "meta_created_dts", "timestamp"],
