@@ -484,4 +484,5 @@
     "is_drop_duplicates": 1,
     "is_sql_join": 0,
     "distinct_columns": ["GlobalMessage"]
+    
 }]
