@@ -180,7 +180,7 @@
         ["LoadDatetime", "string", "meta_created_dts", "timestamp"],
         ["LastUpdatedDatetime", "string", "meta_updated_dts", "timestamp"]
     ],
-    "is_migrating":1,
+    "is_migrating":0,
     "primary_key": "META_INTEGRATION_ID",
     "is_drop_duplicates": 0,
     "is_sql_join": 0,
@@ -191,9 +191,8 @@
     "s3_path": "s3://scheme-ref-dev-data-copy/REF_LEVEL_OF_COVER.txt",
     "field_mapping":[
         ["COUNTRY_CODE", "string", "country_code", "string"],
-        ["COVERAGE_PROFILE", "string", "coverage_profile", "string"],
         ["LEVEL_OF_COVER_CATEGORY_CODE", "string", "level_of_cover_category_code", "string"],
-        ["LEVEL_OF_COVER_CATEGORY", "string", "level_of_cover_category", "string"],
+        ["COVER_CODE", "string", "cover_code", "string"],
         ["ACTIVE_FLAG", "string", "active_flag", "string"],
         ["RefDataId", "string", "meta_integration_id", "bigint"],
         ["LoadDatetime", "string", "meta_created_dts", "timestamp"],

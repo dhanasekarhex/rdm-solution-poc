@@ -253,14 +253,14 @@ class GlueConnectionStack(Stack):
         
         # # Glue Job stuff
         glue_job = glue.CfnJob(
-            self, "RDMSolutionGlueJob",
+            self, "RDMProductVarientSolutionGlueJob",
             command={
-                'name':"glue_poc",
+                'name':"rdm_product_varient",
                 'pythonVersion':"3",
                 'scriptLocation':"s3://etl-glue-scripts/scripts/poc_rdm_etl_cdk.py",
                 'extraPythonArguments': '--job-type etl'
             },            
-            name="glue_job_poc",
+            name="rdm_product_varient_etl",
             role=glue_role.role_arn,
             worker_type="G.1X",
             number_of_workers=10,
